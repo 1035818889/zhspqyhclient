@@ -10,6 +10,8 @@ import Unfinish from '../pages/Unfinish'
 import About from '../components/About'
 import SwlcJzOld from '../pages/SwlcJz'
 import swlcFgjzsp from '../pages/swlc/fgjzsp'
+import zbksfgjzsp from '../pages/swlc/zbksfgjzsp'
+import yskfgjz from '../pages/swlc/yskfgjz'
 import swlcJz from '../pages/swlc/swlcJz'
 import swlcCx from '../pages/swlc/swlcCx'
 import swlcCxLclx0 from '../pages/swlc/swlcCxLclx0'
@@ -56,6 +58,14 @@ export default new VueRouter({
        {
            path: '/swlcFgjzsp',
            component: swlcFgjzsp
+       },
+       {
+           path: '/yskfgjz',
+           component: yskfgjz
+       },
+       {
+           path: '/zbksfgjzsp',
+           component: zbksfgjzsp
        },
        {
            path: '/swlcCx',
