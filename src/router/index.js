@@ -15,6 +15,8 @@ import yskfgjz from '../pages/swlc/yskfgjz'
 import swlcJz from '../pages/swlc/swlcJz'
 import typyJldsp from '../pages/swlc/typyJldsp'
 import typyJzsp from '../pages/swlc/typyJzsp'
+import bgbJzjdSp from '../pages/swlc/bgbJzjdSp'
+import bgbFgjzSp from '../pages/swlc/bgbFgjzSp'
 import swlcCx from '../pages/swlc/swlcCx'
 import swlcCxLclx0 from '../pages/swlc/swlcCxLclx0'
 import swlcCxLclx2 from '../pages/swlc/swlcCxLclx2'
@@ -76,6 +78,14 @@ export default new VueRouter({
        {
            path: '/typyJzsp',
            component: typyJzsp
+       },
+       {
+           path: '/bgbJzjdSp',
+           component: bgbJzjdSp
+       },
+       {
+           path: '/bgbFgjzSp',
+           component: bgbFgjzSp
        },
        {
            path: '/swlcCx',
