@@ -17,6 +17,7 @@ import typyJldsp from '../pages/swlc/typyJldsp'
 import typyJzsp from '../pages/swlc/typyJzsp'
 import bgbJzjdSp from '../pages/swlc/bgbJzjdSp'
 import bgbFgjzSp from '../pages/swlc/bgbFgjzSp'
+import ksyiAdjustFgjzsp from '../pages/swlc/ksyiAdjustFgjzsp'
 import swlcCx from '../pages/swlc/swlcCx'
 import swlcCxLclx0 from '../pages/swlc/swlcCxLclx0'
 import swlcCxLclx2 from '../pages/swlc/swlcCxLclx2'
@@ -86,6 +87,10 @@ export default new VueRouter({
        {
            path: '/bgbFgjzSp',
            component: bgbFgjzSp
+       },
+       {
+           path: '/ksyiAdjustFgjzsp',
+           component: ksyiAdjustFgjzsp
        },
        {
            path: '/swlcCx',
