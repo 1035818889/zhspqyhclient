@@ -186,7 +186,6 @@
 
 <script>
     export default {
-        name: "SwlcJz",
         data() {
             return {
                 activeIndex: 0,

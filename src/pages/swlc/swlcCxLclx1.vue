@@ -1,150 +1,136 @@
 ﻿<template>
     <div>
-        <van-row style="padding-bottom: 65px;">
-            <van-col span="6">
-                <van-sticky>
-                    <van-sidebar v-model="activeKey" @change="sidebarClick">
-                        <van-sidebar-item title="基本信息"/>
-                        <van-sidebar-item title="科室意见"/>
-                        <van-sidebar-item title="综合意见"/>
-                        <van-sidebar-item title="正文附件"/>
-                        <van-sidebar-item title="审批历史"/>
-                    </van-sidebar>
-                </van-sticky>
-            </van-col>
-            <van-col span="18">
-                <van-swipe ref="item" :loop="false" :show-indicators="false" :touchable="false">
-                    <van-swipe-item>
-                        <van-panel>
-                            <div>
-                                <van-list
-                                        v-model="loadingJbxx"
-                                        :finished="finishedJbxx"
-                                        @load="onLoadJbxx"
-                                >
-                                    <van-cell
-                                            v-for="item in jbxx"
-                                            :key="item.title"
-                                            :title = "item.title"
-                                            :value = "item.value"
-                                            :label = "item.label"
-                                    />
-                                </van-list>
-                            </div>
-                        </van-panel>
-                    </van-swipe-item>
-                    <van-swipe-item>
-                        <van-collapse v-model="activeNames">
+        <van-tree-select
+                style="padding-bottom: 100px;"
+                height="100%"
+                :items="items"
+                :main-active-index.sync="activeIndex"
+        >
+            <template slot="content">
+                <div v-if="activeIndex === 0">
+                    <van-panel>
+                        <div>
                             <van-list
-                                    v-model="loadingSwyj"
-                                    :finished="finishedSwyj"
-                                    @load="onLoadSwyj"
-                            >
-                            <van-collapse-item
-                                    v-for="swyj in swyjs"
-                                    :key="swyj.key"
-                                    :title = "swyj.title"
-                                    :name = "swyj.key"
-                            >
-                                <van-cell v-for="yj in swyj.yjs"
-                                          :key="yj.key"
-                                          :title = "yj.cname"
-                                          :label = "yj.label"/>
-                            </van-collapse-item>
-                            </van-list>
-                        </van-collapse>
-                    </van-swipe-item>
-                    <van-swipe-item>
-                        <van-cell-group title="回复正文">
-                            <van-list
-                                    v-model="loadingLwclyjZws"
-                                    :finished="finishedLwclyjZws"
-                                    @load="onLoadLwclyjZws"
+                                    v-model="loadingJbxx"
+                                    :finished="finishedJbxx"
+                                    @load="onLoadJbxx"
                             >
                                 <van-cell
-                                        v-for="lwclyjZw in lwclyjZws"
-                                        :key="lwclyjZw.url"
-                                        :title = "lwclyjZw.title"
-                                        is-link
-                                        center
-                                        @click="showFile(lwclyjZw.url,'lwclyjZw')"
+                                        v-for="item in jbxx"
+                                        :key="item.title"
+                                        :title = "item.title"
+                                        :value = "item.value"
+                                        :label = "item.label"
                                 />
                             </van-list>
-                        </van-cell-group>
-                        <van-cell-group title="回复附件">
-                            <van-list
-                                    v-model="loadingLwclyjFjs"
-                                    :finished="finishedLwclyjFjs"
-                                    @load="onLoadLwclyjFjs"
-                            >
-                                <van-cell
-                                        v-for="lwclyjFj in lwclyjFjs"
-                                        :key="lwclyjFj.url"
-                                        :title = "lwclyjFj.title"
-                                        is-link
-                                        center
-                                        @click="showFile(lwclyjFj.url,'lwclyjFj')"
-                                />
-                            </van-list>
-                        </van-cell-group>
-                    </van-swipe-item>
-                    <van-swipe-item>
+                        </div>
+                    </van-panel>
+                </div>
+                <div v-if="activeIndex === 1">
+                    <van-list
+                            v-model="loadingWjysZws"
+                            :finished="finishedWjysZws"
+                            @load="onLoadWjysZws"
+                    >
+                        <van-cell
+                                v-for="wjysZw in wjysZws"
+                                :key="wjysZw.url"
+                                :title = "wjysZw.title"
+                                is-link
+                                center
+                                @click="showFile(wjysZw.url,'swzw')"
+                        />
+                    </van-list>
+                </div>
+                <div v-if="activeIndex === 2">
+                    <van-cell-group title="主办人意见">
+                        <!-- <van-cell
+                                 v-model="zbryj"
+                                 center
+                         />-->
+                        <van-field
+                                v-model="zbryj"
+                                rows="6"
+                                autosize
+                                type="textarea"
+                                readonly
+                        />
+                    </van-cell-group>
+                    <van-cell-group title="处理意见附件">
                         <van-list
-                                v-model="loadingWjysZws"
-                                :finished="finishedWjysZws"
-                                @load="onLoadWjysZws"
+                                v-model="loadingLwclyjFjs"
+                                :finished="finishedLwclyjFjs"
+                                @load="onLoadLwclyjFjs"
                         >
                             <van-cell
-                                    v-for="wjysZw in wjysZws"
-                                    :key="wjysZw.url"
-                                    :title = "wjysZw.title"
+                                    v-for="lwclyjFj in lwclyjFjs"
+                                    :key="lwclyjFj.url"
+                                    :title = "lwclyjFj.title"
                                     is-link
                                     center
-                                    @click="showFile(wjysZw.url,'swzw')"
+                                    @click="showFile(lwclyjFj.url,'typyZbryjFj')"
                             />
                         </van-list>
-                    </van-swipe-item>
-                    <van-swipe-item>
-                        <van-steps direction="vertical" inactive-icon="passed" :active="-1">
-                            <van-list
-                                    v-model="loadingHiss"
-                                    :finished="finishedHiss"
-                                    @load="onLoadHiss"
-                            >
-                                <van-step v-for="his in hiss" :key="his.key">
-                                    <h3>{{his.nodeName}}</h3>
-                                    <h3>{{his.cname}}</h3>
-                                    <p>{{his.createDate}}</p>
-                                    <p>{{his.endDate}}</p>
-                                    <p>{{his.yj}}</p>
-                                </van-step>
-                            </van-list>
-                        </van-steps>
-                    </van-swipe-item>
-                </van-swipe>
-            </van-col>
-        </van-row>
+                    </van-cell-group>
+                </div>
+                <div v-if="activeIndex === 3">
+                    <van-steps direction="vertical" inactive-icon="label-o" :active="-1">
+                        <van-list
+                                v-model="loadingBzzj"
+                                :finished="finishedBzzj"
+                                @load="onLoadBzzj"
+                        >
+                            <van-step v-for="bzzj in bzzjs" :key="bzzj.key">
+                                <p>{{bzzj.skdwCname}}</p>
+                                <p>{{bzzj.bzwh}}</p>
+                                <p>{{bzzj.bzxm}}</p>
+                                <p>{{bzzj.yskmMc}}</p>
+                                <p>{{bzzj.jjkmMc}}</p>
+                                <p>{{bzzj.jflxMc}}</p>
+                                <p>{{bzzj.bzje}}</p>
+                                <p>{{bzzj.bzjc}}</p>
+                                <p>{{bzzj.bzbz}}</p>
+                            </van-step>
+                        </van-list>
+                    </van-steps>
+                </div>
+                <div v-if="activeIndex === 4">
+                    <van-steps direction="vertical" inactive-icon="passed" :active="-1">
+                        <van-list
+                                v-model="loadingHiss"
+                                :finished="finishedHiss"
+                                @load="onLoadHiss"
+                        >
+                            <van-step v-for="his in hiss" :key="his.key">
+                                <h3>{{his.nodeName}}</h3>
+                                <h3>{{his.cname}}</h3>
+                                <p>{{his.createDate}}</p>
+                                <p>{{his.endDate}}</p>
+                                <p>{{his.yj}}</p>
+                            </van-step>
+                        </van-list>
+                    </van-steps>
+                </div>
+            </template>
+        </van-tree-select>
     </div>
 </template>
 
 <script>
     export default {
-        name: "SwlcJz",
         data() {
             return {
-                activeNames:[],
+                activeIndex: 0,
+                apiUrlTabs: this.GLOBAL.serverSrc+'/zhspSwlc/getTypyTabs.do',
+                items: [],
                 jbxx: [],
+                zbryj:"",
+                apiUrlZbryj: this.GLOBAL.serverSrc+'/zhspSwlc/getTypyZbryj.do',
                 loadingJbxx: false,
                 finishedJbxx: false,
-                apiUrlJbxx: this.GLOBAL.serverSrc+'/zhspSwlc/getWjysById.do',
-                swyjs: [],
-                loadingSwyj: false,
-                finishedSwyj: false,
-                apiUrlSwyj: this.GLOBAL.serverSrc+'/zhspSwlc/getSwyjByBusinessId.do',
+                apiUrlJbxx: this.GLOBAL.serverSrc+'/zhspSwlc/getWjysByIdForTypy.do',
                 activeKey: 0,
-                lwclyjZws: [],
-                loadingLwclyjZws: false,
-                finishedLwclyjZws: false,
+                activeNames: ['1'],
                 apiUrlLwclyjZws: this.GLOBAL.serverSrc+'/zhspSwlc/getSwfjByBusinessIdAndType.do',
                 lwclyjFjs: [],
                 loadingLwclyjFjs: false,
@@ -156,13 +142,28 @@
                 hiss: [],
                 loadingHiss: false,
                 finishedHiss: false,
+                apiUrlBzzj: this.GLOBAL.serverSrc+'/zhspSwlc/getTypySjxdbzzj.do',
+                bzzjs: [],
+                loadingBzzj: false,
+                finishedBzzj: false
             };
         },
+        created(){
+            this.onLoadTabs();
+        },
         methods: {
-            sidebarClick(index) {
-                this.$refs.item.swipeTo(index,{"immediate":true});
-                //可以优化成只有综合意见和正文附件tab回到顶部
-                window.scrollTo(0, 0);
+            onLoadTabs() {
+                let businessId = this.$route.query.businessId;
+                this.$http.get(this.apiUrlTabs,{params: {businessId:businessId}}).then(function(response) {
+                    this.items=response.data;
+                },function() {
+                    // eslint-disable-next-line no-console
+                    console.log("出错了");
+                }).catch(function(response) {
+                    // eslint-disable-next-line no-console
+                    console.log(response);
+                });
+
             },
             onLoadJbxx() {
                 let businessId = this.$route.query.businessId;
@@ -179,13 +180,8 @@
                     console.log(response);
                 });
 
-            },
-            onLoadSwyj() {
-                let businessId = this.$route.query.businessId;
-                this.$http.get(this.apiUrlSwyj,{params: {businessId:businessId}}).then(function(response) {
-                    this.swyjs=response.data;
-                    this.loadingSwyj = false;
-                    this.finishedSwyj = true;
+                this.$http.get(this.apiUrlZbryj,{params: {businessId:businessId}}).then(function(response) {
+                    this.zbryj=response.bodyText;
                 },function() {
                     // eslint-disable-next-line no-console
                     console.log("出错了");
@@ -193,24 +189,11 @@
                     // eslint-disable-next-line no-console
                     console.log(response);
                 });
-            },
-            onLoadLwclyjZws() {
-                let businessId = this.$route.query.businessId;
-                this.$http.get(this.apiUrlLwclyjZws,{params: {businessId:businessId,type:'lwclyjZw'}}).then(function(response) {
-                    this.lwclyjZws=response.data;
-                    this.loadingLwclyjZws = false;
-                    this.finishedLwclyjZws = true;
-                },function() {
-                    // eslint-disable-next-line no-console
-                    console.log("出错了");
-                }).catch(function(response) {
-                    // eslint-disable-next-line no-console
-                    console.log(response);
-                });
+
             },
             onLoadLwclyjFjs() {
                 let businessId = this.$route.query.businessId;
-                this.$http.get(this.apiUrlLwclyjZws,{params: {businessId:businessId,type:'lwclyjFj'}}).then(function(response) {
+                this.$http.get(this.apiUrlLwclyjZws,{params: {businessId:businessId,type:'typyZbryjFj'}}).then(function(response) {
                     this.lwclyjFjs=response.data;
                     this.loadingLwclyjFjs = false;
                     this.finishedLwclyjFjs = true;
@@ -250,6 +233,20 @@
                     console.log(response);
                 });
             },
+            onLoadBzzj() {
+                let businessId = this.$route.query.businessId;
+                this.$http.get(this.apiUrlBzzj,{params: {businessId:businessId}}).then(function(response) {
+                    this.bzzjs=response.data;
+                    this.loadingBzzj = false;
+                    this.finishedBzzj = true;
+                },function() {
+                    // eslint-disable-next-line no-console
+                    console.log("出错了");
+                }).catch(function(response) {
+                    // eslint-disable-next-line no-console
+                    console.log(response);
+                });
+            },
             showFile(fileUrl,fileType) {
                 window.parent.showFile(this.GLOBAL.serverSrcPdfView + this.GLOBAL.serverSrc + "/zhspTouchFileOnlineOpen/preview?fileName%3D"+fileUrl+"%26fileType%3D"+fileType);
             }
@@ -258,5 +255,10 @@
 </script>
 
 <style scoped>
-
+    .van-tree-select__nav {
+        flex: none;
+    }
+    .van-sidebar {
+        width: 85px;
+    }
 </style>

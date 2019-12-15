@@ -1,154 +1,54 @@
 ﻿<template>
     <div>
-        <van-tabs v-model="activeKey" sticky swipeable>
-            <van-tab title="基本信息">
-                <van-panel>
-                    <div>
-                        <van-list
-                                v-model="loadingJbxx"
-                                :finished="finishedJbxx"
-                                @load="onLoadJbxx"
-                        >
-                            <van-cell
-                                    v-for="item in jbxx"
-                                    :key="item.title"
-                                    :title = "item.title"
-                                    :value = "item.value"
-                                    :label = "item.label"
-                            />
-                        </van-list>
-                    </div>
-                </van-panel>
-            </van-tab>
-            <van-tab title="科室意见">
-                <van-collapse v-model="activeNames">
-                    <van-list
-                            v-model="loadingSwyj"
-                            :finished="finishedSwyj"
-                            @load="onLoadSwyj"
-                    >
-                        <van-collapse-item
-                                v-for="swyj in swyjs"
-                                :key="swyj.key"
-                                :title = "swyj.title"
-                                :name = "swyj.key"
-                        >
-                            <van-cell v-for="yj in swyj.yjs"
-                                      :key="yj.key"
-                                      :title = "yj.cname"
-                                      :label = "yj.label"/>
-                        </van-collapse-item>
-                    </van-list>
-                </van-collapse>
-            </van-tab>
-            <van-tab title="综合意见">
-                <van-cell-group title="回复正文">
-                    <van-list
-                            v-model="loadingLwclyjZws"
-                            :finished="finishedLwclyjZws"
-                            @load="onLoadLwclyjZws"
-                    >
-                        <van-cell
-                                v-for="lwclyjZw in lwclyjZws"
-                                :key="lwclyjZw.url"
-                                :title = "lwclyjZw.title"
-                                is-link
-                                center
-                                @click="showFile(lwclyjZw.url,'lwclyjZw')"
-                        />
-                    </van-list>
-                </van-cell-group>
-                <van-cell-group title="回复附件">
-                    <van-list
-                            v-model="loadingLwclyjFjs"
-                            :finished="finishedLwclyjFjs"
-                            @load="onLoadLwclyjFjs"
-                    >
-                        <van-cell
-                                v-for="lwclyjFj in lwclyjFjs"
-                                :key="lwclyjFj.url"
-                                :title = "lwclyjFj.title"
-                                is-link
-                                center
-                                @click="showFile(lwclyjFj.url,'lwclyjFj')"
-                        />
-                    </van-list>
-                </van-cell-group>
-            </van-tab>
-            <van-tab title="正文附件">
-                <van-list
-                        v-model="loadingWjysZws"
-                        :finished="finishedWjysZws"
-                        @load="onLoadWjysZws"
-                >
-                    <van-cell
-                            v-for="wjysZw in wjysZws"
-                            :key="wjysZw.url"
-                            :title = "wjysZw.title"
-                            is-link
-                            center
-                            @click="showFile(wjysZw.url,'swzw')"
-                    />
-                </van-list>
-            </van-tab>
-            <van-tab title="审批历史">
-                <van-steps direction="vertical" inactive-icon="passed" :active="-1">
-                    <van-list
-                            v-model="loadingHiss"
-                            :finished="finishedHiss"
-                            @load="onLoadHiss"
-                    >
-                        <van-step v-for="his in hiss" :key="his.key">
-                            <h3>{{his.nodeName}}</h3>
-                            <h3>{{his.cname}}</h3>
-                            <p>{{his.createDate}}</p>
-                            <p>{{his.endDate}}</p>
-                            <p>{{his.yj}}</p>
-                        </van-step>
-                    </van-list>
-                </van-steps>
-            </van-tab>
-        </van-tabs>
-        <!--<van-row style="padding-bottom: 65px;">
-            <van-col span="6">
-                <van-sticky>
-                    <van-sidebar v-model="activeKey" @change="sidebarClick">
-                        <van-sidebar-item title="基本信息"/>
-                        <van-sidebar-item title="科室意见"/>
-                        <van-sidebar-item title="综合意见"/>
-                        <van-sidebar-item title="正文附件"/>
-                        <van-sidebar-item title="审批历史"/>
-                    </van-sidebar>
-                </van-sticky>
-            </van-col>
-            <van-col span="18">
-                <van-swipe ref="item" :loop="false" :show-indicators="false" :touchable="false">
-                    <van-swipe-item>
-                        <van-panel>
-                            <div>
-                                <van-list
-                                        v-model="loadingJbxx"
-                                        :finished="finishedJbxx"
-                                        @load="onLoadJbxx"
-                                >
-                                    <van-cell
-                                            v-for="item in jbxx"
-                                            :key="item.title"
-                                            :title = "item.title"
-                                            :value = "item.value"
-                                            :label = "item.label"
-                                    />
-                                </van-list>
-                            </div>
-                        </van-panel>
-                    </van-swipe-item>
-                    <van-swipe-item>
-                        <van-collapse v-model="activeNames">
+        <van-tree-select
+                style="padding-bottom: 100px;"
+                height="100%"
+                :items="items"
+                :main-active-index.sync="activeIndex"
+        >
+            <template slot="content">
+                <div v-if="activeIndex === 0">
+                    <van-panel>
+                        <div>
                             <van-list
-                                    v-model="loadingSwyj"
-                                    :finished="finishedSwyj"
-                                    @load="onLoadSwyj"
+                                    v-model="loadingJbxx"
+                                    :finished="finishedJbxx"
+                                    @load="onLoadJbxx"
                             >
+                                <van-cell
+                                        v-for="item in jbxx"
+                                        :key="item.title"
+                                        :title = "item.title"
+                                        :value = "item.value"
+                                        :label = "item.label"
+                                />
+                            </van-list>
+                        </div>
+                    </van-panel>
+                </div>
+                <div v-if="activeIndex === 1">
+                    <van-list
+                            v-model="loadingWjysZws"
+                            :finished="finishedWjysZws"
+                            @load="onLoadWjysZws"
+                    >
+                        <van-cell
+                                v-for="wjysZw in wjysZws"
+                                :key="wjysZw.url"
+                                :title = "wjysZw.title"
+                                is-link
+                                center
+                                @click="showFile(wjysZw.url,'swzw')"
+                        />
+                    </van-list>
+                </div>
+                <div v-if="activeIndex === 2">
+                    <van-collapse v-model="activeNames">
+                        <van-list
+                                v-model="loadingSwyj"
+                                :finished="finishedSwyj"
+                                @load="onLoadSwyj"
+                        >
                             <van-collapse-item
                                     v-for="swyj in swyjs"
                                     :key="swyj.key"
@@ -160,87 +60,71 @@
                                           :title = "yj.cname"
                                           :label = "yj.label"/>
                             </van-collapse-item>
-                            </van-list>
-                        </van-collapse>
-                    </van-swipe-item>
-                    <van-swipe-item>
-                        <van-cell-group title="回复正文">
-                            <van-list
-                                    v-model="loadingLwclyjZws"
-                                    :finished="finishedLwclyjZws"
-                                    @load="onLoadLwclyjZws"
-                            >
-                                <van-cell
-                                        v-for="lwclyjZw in lwclyjZws"
-                                        :key="lwclyjZw.url"
-                                        :title = "lwclyjZw.title"
-                                        is-link
-                                        center
-                                        @click="showFile(lwclyjZw.url,'lwclyjZw')"
-                                />
-                            </van-list>
-                        </van-cell-group>
-                        <van-cell-group title="回复附件">
-                            <van-list
-                                    v-model="loadingLwclyjFjs"
-                                    :finished="finishedLwclyjFjs"
-                                    @load="onLoadLwclyjFjs"
-                            >
-                                <van-cell
-                                        v-for="lwclyjFj in lwclyjFjs"
-                                        :key="lwclyjFj.url"
-                                        :title = "lwclyjFj.title"
-                                        is-link
-                                        center
-                                        @click="showFile(lwclyjFj.url,'lwclyjFj')"
-                                />
-                            </van-list>
-                        </van-cell-group>
-                    </van-swipe-item>
-                    <van-swipe-item>
+                        </van-list>
+                    </van-collapse>
+                </div>
+                <div v-if="activeIndex === 3">
+                    <van-cell-group title="回复正文">
                         <van-list
-                                v-model="loadingWjysZws"
-                                :finished="finishedWjysZws"
-                                @load="onLoadWjysZws"
+                                v-model="loadingLwclyjZws"
+                                :finished="finishedLwclyjZws"
+                                @load="onLoadLwclyjZws"
                         >
                             <van-cell
-                                    v-for="wjysZw in wjysZws"
-                                    :key="wjysZw.url"
-                                    :title = "wjysZw.title"
+                                    v-for="lwclyjZw in lwclyjZws"
+                                    :key="lwclyjZw.url"
+                                    :title = "lwclyjZw.title"
                                     is-link
                                     center
-                                    @click="showFile(wjysZw.url,'swzw')"
+                                    @click="showFile(lwclyjZw.url,'lwclyjZw')"
                             />
                         </van-list>
-                    </van-swipe-item>
-                    <van-swipe-item>
-                        <van-steps direction="vertical" inactive-icon="passed" :active="-1">
-                            <van-list
-                                    v-model="loadingHiss"
-                                    :finished="finishedHiss"
-                                    @load="onLoadHiss"
-                            >
-                                <van-step v-for="his in hiss" :key="his.key">
-                                    <h3>{{his.nodeName}}</h3>
-                                    <h3>{{his.cname}}</h3>
-                                    <p>{{his.createDate}}</p>
-                                    <p>{{his.endDate}}</p>
-                                    <p>{{his.yj}}</p>
-                                </van-step>
-                            </van-list>
-                        </van-steps>
-                    </van-swipe-item>
-                </van-swipe>
-            </van-col>
-        </van-row>-->
+                    </van-cell-group>
+                    <van-cell-group title="回复附件">
+                        <van-list
+                                v-model="loadingLwclyjFjs"
+                                :finished="finishedLwclyjFjs"
+                                @load="onLoadLwclyjFjs"
+                        >
+                            <van-cell
+                                    v-for="lwclyjFj in lwclyjFjs"
+                                    :key="lwclyjFj.url"
+                                    :title = "lwclyjFj.title"
+                                    is-link
+                                    center
+                                    @click="showFile(lwclyjFj.url,'lwclyjFj')"
+                            />
+                        </van-list>
+                    </van-cell-group>
+                </div>
+                <div v-if="activeIndex === 4">
+                    <van-steps direction="vertical" inactive-icon="passed" :active="-1">
+                        <van-list
+                                v-model="loadingHiss"
+                                :finished="finishedHiss"
+                                @load="onLoadHiss"
+                        >
+                            <van-step v-for="his in hiss" :key="his.key">
+                                <h3>{{his.nodeName}}</h3>
+                                <h3>{{his.cname}}</h3>
+                                <p>{{his.createDate}}</p>
+                                <p>{{his.endDate}}</p>
+                                <p>{{his.yj}}</p>
+                            </van-step>
+                        </van-list>
+                    </van-steps>
+                </div>
+            </template>
+        </van-tree-select>
     </div>
 </template>
 
 <script>
     export default {
-        name: "SwlcJz",
         data() {
             return {
+                activeIndex: 0,
+                items: [{ text: '基本信息' }, { text: '正文附件' }, { text: '科室意见' }, { text: '综合意见' }, { text: '审批历史' }],
                 activeNames:[],
                 jbxx: [],
                 loadingJbxx: false,
@@ -367,5 +251,10 @@
 </script>
 
 <style scoped>
-
+    .van-tree-select__nav {
+        flex: none;
+    }
+     .van-sidebar {
+         width: 85px;
+     }
 </style>

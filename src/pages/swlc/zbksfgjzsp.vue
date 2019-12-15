@@ -158,7 +158,6 @@
 
 <script>
     export default {
-        name: "SwlcJz",
         data() {
             return {
                 submitType:"",

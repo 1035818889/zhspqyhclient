@@ -151,7 +151,6 @@
 
 <script>
     export default {
-        name: "SwlcJz",
         data() {
             return {
                 activeIndex: 0,
@@ -303,11 +302,20 @@
 
             },
             onLoadSwyj() {
-                //let businessId = this.$route.query.businessId;
-                this.$http.get(this.apiUrlSwyj,{params: {businessId:this.ksyjAdjust[0].wjysId}}).then(function(response) {
-                    this.swyjs=response.data;
-                    this.loadingSwyj = false;
-                    this.finishedSwyj = true;
+                let businessId = this.$route.query.businessId;
+                this.$http.get(this.apiUrlKsyjAdjust,{params: {businessId:businessId}}).then(function(response) {
+                        this.ksyjAdjust=response.data;
+                        this.$http.get(this.apiUrlSwyj,{params: {businessId:this.ksyjAdjust[0].wjysId}}).then(function(response) {
+                            this.swyjs=response.data;
+                            this.loadingSwyj = false;
+                            this.finishedSwyj = true;
+                        },function() {
+                            // eslint-disable-next-line no-console
+                            console.log("出错了");
+                        }).catch(function(response) {
+                            // eslint-disable-next-line no-console
+                            console.log(response);
+                        });
                 },function() {
                     // eslint-disable-next-line no-console
                     console.log("出错了");
@@ -358,11 +366,20 @@
                 });
             },
             onLoadWjysZws() {
-                //let businessId = this.$route.query.businessId;
-                this.$http.get(this.apiUrlLwclyjZws,{params: {businessId:this.ksyjAdjust[0].wjysId,type:'wjysZw'}}).then(function(response) {
-                    this.wjysZws=response.data;
-                    this.loadingWjysZws = false;
-                    this.finishedWjysZws = true;
+                let businessId = this.$route.query.businessId;
+                this.$http.get(this.apiUrlKsyjAdjust,{params: {businessId:businessId}}).then(function(response) {
+                        this.ksyjAdjust=response.data;
+                        this.$http.get(this.apiUrlLwclyjZws,{params: {businessId:this.ksyjAdjust[0].wjysId,type:'wjysZw'}}).then(function(response) {
+                            this.wjysZws=response.data;
+                            this.loadingWjysZws = false;
+                            this.finishedWjysZws = true;
+                        },function() {
+                            // eslint-disable-next-line no-console
+                            console.log("出错了");
+                        }).catch(function(response) {
+                            // eslint-disable-next-line no-console
+                            console.log(response);
+                        });
                 },function() {
                     // eslint-disable-next-line no-console
                     console.log("出错了");
