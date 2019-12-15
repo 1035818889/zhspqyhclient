@@ -221,7 +221,7 @@
                 hiss: [],
                 loadingHiss: false,
                 finishedHiss: false,
-                apiUrlOperate: this.GLOBAL.serverSrc+'/zhspSwlc/doTaskForBgb.do',
+                apiUrlOperate: this.GLOBAL.serverSrc+'/zhspSwlc/doTask.do',
                 show: false,
                 value:"",
                 apiUrlSpyj: this.GLOBAL.serverSrc+'/zhspSwlc/getSpyj.do',
