@@ -104,9 +104,13 @@
                                     :name = "swyj.key"
                             >
                                 <van-cell v-for="yj in swyj.yjs"
+                                          :is-link="yj.isLink"
+                                          center
                                           :key="yj.key"
                                           :title = "yj.cname"
-                                          :label = "yj.label"/>
+                                          :label = "yj.label"
+                                          @click="onLoadSwyjFjs(yj.key,yj.isLink)"
+                                />
                             </van-collapse-item>
                         </van-list>
                     </van-collapse>
@@ -201,6 +205,30 @@
             <van-goods-action-button style="margin-right:0px;margin-left:0px" type="info" text="确认提交" @click="onClickSubmit" />
         </van-popup>
         <van-action-sheet v-model="show" :actions="actions" @select="onSelect" @open="onLoadSpyj" style="margin-bottom: 55px;"/>
+        <van-popup
+                v-model="swyjFjPopupShow"
+                position="bottom"
+                closeable
+                close-icon-position = "top-right"
+                safe-area-inset-bottom
+                style = "height: 60%;padding-bottom:20px"
+        >
+            <van-cell-group title="办理意见附件">
+                <van-list
+                        v-model="loadingSwyjFjs"
+                        :finished="finishedSwyjFjs"
+                >
+                    <van-cell
+                            v-for="swyjFj in swyjFjs"
+                            :key="swyjFj.url"
+                            :title = "swyjFj.title"
+                            is-link
+                            center
+                            @click="showFile(swyjFj.url,'swyjFj')"
+                    />
+                </van-list>
+            </van-cell-group>
+        </van-popup>
     </div>
 </template>
 
@@ -249,6 +277,10 @@
                 actions: [{ name: '同意。' }, { name: '退回。' }],
                 apiUrlBgb: this.GLOBAL.serverSrc+'/zhspSwlc/getBgbById.do',
                 bgb:[{fqrCname:'',xgyy:'',wjysId:''}],
+                swyjFjPopupShow:false,
+                swyjFjs: [],
+                loadingSwyjFjs: false,
+                finishedSwyjFjs: false
             };
         },
         methods: {
@@ -446,6 +478,22 @@
                     // eslint-disable-next-line no-console
                     console.log(response);
                 });
+            },
+            onLoadSwyjFjs(swyjId,isLink) {
+                if(isLink){
+                    this.swyjFjPopupShow = true;
+                    this.$http.get(this.apiUrlLwclyjZws,{params: {businessId:swyjId,type:'swyjFj'}}).then(function(response) {
+                        this.swyjFjs=response.data;
+                        this.loadingSwyjFjs = false;
+                        this.finishedSwyjFjs = true;
+                    },function() {
+                        // eslint-disable-next-line no-console
+                        console.log("出错了");
+                    }).catch(function(response) {
+                        // eslint-disable-next-line no-console
+                        console.log(response);
+                    });
+                }
             },
             showFile(fileUrl,fileType) {
                 window.parent.showFile(this.GLOBAL.serverSrcPdfView + this.GLOBAL.serverSrc + "/zhspTouchFileOnlineOpen/preview?fileName%3D"+fileUrl+"%26fileType%3D"+fileType);
