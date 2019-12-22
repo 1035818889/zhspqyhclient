@@ -143,7 +143,7 @@
                 closeable
                 close-icon-position = "top-right"
                 safe-area-inset-bottom
-                style = "height: 60%;padding-bottom:20px"
+                style = "height: 60%;padding-bottom:100px"
         >
             <van-cell-group title="办理意见附件">
                 <van-list
