@@ -1,4 +1,5 @@
 ﻿<template>
+
     <van-popup
             v-model="show"
             position="top"
@@ -8,8 +9,11 @@
             :style="{ height: '100%' }"
             style="overflow-y: hidden;"
     >
-        <iframe :key="touchUrl" :src="touchUrl" frameborder="0" style="height:100%;width: 100%;margin-top: 55px;"></iframe>
+        <div class="scroll-wrapper">
+        <iframe :key="touchUrl" :src="touchUrl" frameborder="0" style="height:100%;width: 100%;/*margin-top: 55px;*/"></iframe>
+        </div>
     </van-popup>
+
 </template>
 
 <script>
@@ -33,6 +37,16 @@
 </script>
 
 <style>
+    .scroll-wrapper {
+        margin-top: 55px;
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
+    }
     .van-popup__close-icon--top-left {
         top: 10px !important;
         left: 8px !important;

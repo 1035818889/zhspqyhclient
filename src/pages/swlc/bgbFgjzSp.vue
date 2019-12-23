@@ -168,7 +168,7 @@
                 </div>
             </template>
         </van-tree-select>
-        <van-goods-action safe-area-inset-bottom style="width: 100%;margin-bottom: 55px;">
+        <van-goods-action safe-area-inset-bottom style="width: 100%;/*margin-bottom: 55px;*/">
             <van-row style="width: 100%;">
                 <van-col span="8">
                     <van-goods-action-button style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;margin-left:0px" type="warning" text="退回" @click="onClickBack" />
