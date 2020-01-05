@@ -1,7 +1,9 @@
 ﻿<template>
     <div>
+        <TaskHeader />
+        <File ref="file"/>
         <van-tree-select
-                style="padding-bottom: 100px;"
+                style="padding-bottom: 100px;padding-top: 50px;"
                 height="100%"
                 :items="items"
                 :main-active-index.sync="activeIndex"
@@ -213,7 +215,13 @@
 </template>
 
 <script>
+    import TaskHeader from '../../components/TaskHeader'
+    import File from '../../components/File'
     export default {
+        components: {
+            TaskHeader,
+            File
+        },
         data() {
             return {
                 activeIndex: 0,
@@ -486,8 +494,11 @@
                 }
             },
             showFile(fileUrl,fileType) {
-                window.parent.showFile(this.GLOBAL.serverSrcPdfView + this.GLOBAL.serverSrc + "/zhspTouchFileOnlineOpen/preview?fileName%3D"+fileUrl+"%26fileType%3D"+fileType);
+                this.$refs.file.showFile(this.GLOBAL.serverSrcPdfView + this.GLOBAL.serverSrc + "/zhspTouchFileOnlineOpen/preview?fileName%3D"+fileUrl+"%26fileType%3D"+fileType);
             }
+            /*showFile(fileUrl,fileType) {
+                window.parent.showFile(this.GLOBAL.serverSrcPdfView + this.GLOBAL.serverSrc + "/zhspTouchFileOnlineOpen/preview?fileName%3D"+fileUrl+"%26fileType%3D"+fileType);
+            }*/
         }
     }
 </script>

@@ -35,6 +35,8 @@ import { Icon } from 'vant';
 import { Tab, Tabs } from 'vant';
 import { TreeSelect } from 'vant';
 import { Dialog } from 'vant';
+import { PullRefresh } from 'vant';
+Vue.use(PullRefresh);
 Vue.use(Dialog);
 Vue.use(TreeSelect);
 Vue.use(Tab).use(Tabs);
