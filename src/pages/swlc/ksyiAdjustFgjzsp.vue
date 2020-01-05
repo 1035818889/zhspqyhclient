@@ -10,8 +10,8 @@
         >
             <template slot="content">
                 <div v-if="activeIndex === 0">
-                    <van-panel>
-                        <div>
+                    <!--<van-panel>
+                        <div>-->
                             <van-list
                                     v-model="loadingJbxx"
                                     :finished="finishedJbxx"
@@ -25,8 +25,8 @@
                                         :label = "item.label"
                                 />
                             </van-list>
-                        </div>
-                    </van-panel>
+                        <!--</div>
+                    </van-panel>-->
                 </div>
                 <div v-if="activeIndex === 1">
                     <van-list
@@ -45,15 +45,11 @@
                     </van-list>
                 </div>
                 <div v-if="activeIndex === 2">
-                    <van-panel>
+                    <!--<van-panel>
                         <div slot="header">
                             <van-button plain icon="edit" type="default" text="填写意见" @click="onClickTxyj" />
-                            <!--<van-row>
-                                <van-col span="24" offset="10">
-                                </van-col>
-                            </van-row>-->
                         </div>
-                        <div>
+                        <div>-->
                             <van-collapse v-model="activeNames">
                                 <van-list
                                         v-model="loadingSwyj"
@@ -77,8 +73,8 @@
                                     </van-collapse-item>
                                 </van-list>
                             </van-collapse>
-                        </div>
-                    </van-panel>
+                       <!-- </div>
+                    </van-panel>-->
                 </div>
                 <div v-if="activeIndex === 3">
                     <van-steps direction="vertical" inactive-icon="passed" :active="-1">
@@ -99,7 +95,7 @@
                 </div>
             </template>
         </van-tree-select>
-        <van-goods-action safe-area-inset-bottom style="width: 100%;/*margin-bottom: 45px;*/">
+        <!--<van-goods-action safe-area-inset-bottom style="width: 100%;/*margin-bottom: 45px;*/">
             <van-row style="width: 100%;">
                 <van-col span="5">
                     <van-goods-action-button style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;margin-left:0px" type="warning" text="退回" @click="onClickBack" />
@@ -112,6 +108,19 @@
                 </van-col>
                 <van-col span="5">
                     <van-goods-action-button style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;" type="info" text="同意" @click="onClickPass" />
+                </van-col>
+            </van-row>
+        </van-goods-action>-->
+        <van-goods-action safe-area-inset-bottom style="width: 100%;">
+            <van-row style="width: 100%;">
+                <van-col span="8">
+                    <van-goods-action-button style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;margin-left:0px" type="warning" text="退回" @click="onClickBackV2" />
+                </van-col>
+                <van-col span="8">
+                    <van-goods-action-button style="" type="info" text="填写意见" @click="onClickTxyj" />
+                </van-col>
+                <van-col span="8">
+                    <van-goods-action-button style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;" type="info" text="同意" @click="onClickPassV2" />
                 </van-col>
             </van-row>
         </van-goods-action>
@@ -176,6 +185,29 @@
                 </van-list>
             </van-cell-group>
         </van-popup>
+        <van-popup
+                v-model="operatePopupShow"
+                position="bottom"
+                closeable
+                close-icon-position = "top-right"
+                safe-area-inset-bottom
+                style = "height: 300px"
+        >
+            <van-cell-group>
+                <van-field
+                        v-model="value"
+                        rows="6"
+                        autosize
+                        label="审批意见："
+                        type="textarea"
+                        left-icon="edit"
+                        placeholder="请输入审批意见"
+                >
+                    <van-button style="padding-left: 0px;" slot="button" size="small" type="primary" icon="chat-o" @click="onClickSpyj">意见选择</van-button>
+                </van-field>
+            </van-cell-group>
+            <van-goods-action-button style="margin-right:0px;margin-left:0px" type="info" text="确认提交" @click="onClickSubmit" />
+        </van-popup>
     </div>
 </template>
 
@@ -228,7 +260,9 @@
                 swyjFjPopupShow:false,
                 swyjFjs: [],
                 loadingSwyjFjs: false,
-                finishedSwyjFjs: false
+                finishedSwyjFjs: false,
+                submitType:"",
+                operatePopupShow:false
             };
         },
         methods: {
@@ -245,6 +279,27 @@
             },
             onClickTxyj(){
                 this.popupShow = true;
+            },
+            onClickBackV2(){
+                this.submitType = "back";
+                this.operatePopupShow = true;
+            },
+            onClickPassV2(){
+                let yj = this.currentYj[0].yj;
+                if(typeof yj == "undefined" || null == yj || "" == yj){
+                    this.$toast.fail('请先填写意见！');
+                    return;
+                }
+                this.submitType = "pass";
+                this.operatePopupShow = true;
+            },
+            onClickSubmit(){
+                let submitType = this.submitType;
+                if("pass" == submitType){
+                    this.onClickPass();
+                }else if("back" == submitType){
+                    this.onClickBack();
+                }
             },
             onClickBack(){
                 this.$dialog.confirm({
@@ -284,7 +339,7 @@
                             this.$toast.success('提交成功！');
                             window.top.location.href="/";
                         }else if("SWYJ_IS_NULL"==response.bodyText){
-                            this.$toast.fail('提交失败，请先在科室意见处填写意见！');
+                            this.$toast.fail('提交失败，请先填写意见！');
                         }else{
                             this.$toast.fail('提交失败，请关闭窗口刷新待办任务！');
                         }
@@ -313,6 +368,17 @@
                         this.jbxx=response.data;
                         this.loadingJbxx = false;
                         this.finishedJbxx = true;
+                    },function() {
+                        // eslint-disable-next-line no-console
+                        console.log("出错了");
+                    }).catch(function(response) {
+                        // eslint-disable-next-line no-console
+                        console.log(response);
+                    });
+
+                    let taskId = this.$route.query.taskId;
+                    this.$http.get(this.apiUrlCurrentYj,{params: {businessId:this.ksyjAdjust[0].wjysId,taskId:taskId,type:'2',isKsyjAdjust:'isKsyjAdjust'}}).then(function(response) {
+                        this.currentYj =response.data;
                     },function() {
                         // eslint-disable-next-line no-console
                         console.log("出错了");
@@ -367,16 +433,6 @@
                 let taskId = this.$route.query.taskId;
                 this.$http.get(this.apiUrlCurrentKs,{params: {taskId:taskId,isKsyjAdjust:'isKsyjAdjust'}}).then(function(response) {
                     this.activeNames=response.data;
-                },function() {
-                    // eslint-disable-next-line no-console
-                    console.log("出错了");
-                }).catch(function(response) {
-                    // eslint-disable-next-line no-console
-                    console.log(response);
-                });
-
-                this.$http.get(this.apiUrlCurrentYj,{params: {businessId:this.ksyjAdjust[0].wjysId,taskId:taskId,type:'2'}}).then(function(response) {
-                    this.currentYj =response.data;
                 },function() {
                     // eslint-disable-next-line no-console
                     console.log("出错了");
