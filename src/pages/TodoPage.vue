@@ -1,17 +1,18 @@
 ﻿<template>
     <div id="todo">
-        <TodoHeader />
-        <TodoItem v-on:showTask="showTask"/>
+        <TodoHeader v-on:refreshTodos="refreshTodos"/>
+        <TodoItem ref="todoItem"/>
+        <!--<TodoItem v-on:showTask="showTask"/>
         <Task ref="task"/>
-        <File ref="file"/>
+        <File ref="file"/>-->
     </div>
 </template>
 
 <script>
     import TodoHeader from '../components/TodoHeader'
     import TodoItem from '../components/TodoItem'
-    import Task from '../components/Task'
-    import File from '../components/File'
+    /*import Task from '../components/Task'
+    import File from '../components/File'*/
     export default {
         metaInfo: {
             title: '待办任务',
@@ -23,11 +24,11 @@
         name: "TodoPage",
         components: {
             TodoItem,
-            TodoHeader,
+            TodoHeader/*,
             Task,
-            File
+            File*/
         },
-        mounted() {
+        /*mounted() {
             //这里可放到全局，提供给子 iframe 调用
             window['showFile'] = (param) => {
                 this.showFileChlid(param);
@@ -40,7 +41,12 @@
             showFileChlid(param) {
                 this.$refs.file.showFile(param);
             }
-        },
+        },*/
+        methods: {
+            refreshTodos() {
+                this.$refs.todoItem.onLoad();
+            }
+        }
 
     }
 </script>

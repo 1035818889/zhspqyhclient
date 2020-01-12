@@ -3,6 +3,8 @@
         <van-nav-bar
                 id = "todoNavBar"
                 title="待办任务"
+                right-text="刷新"
+                @click-right="onClickRight"
                 fixed
                 border
         />
@@ -11,7 +13,13 @@
 
 <script>
     export default {
-        name: "TodoHeader"
+        name: "TodoHeader",
+        methods: {
+            onClickRight() {
+                this.$emit('refreshTodos');
+                window.scrollTo(0, 0);
+            }
+        }
     }
 </script>
 
@@ -21,6 +29,9 @@
         background: #379BE9;
     }
     .van-nav-bar__title {
+        color: #FFF;
+    }
+    .van-nav-bar__text {
         color: #FFF;
     }
 </style>

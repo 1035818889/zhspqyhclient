@@ -1,5 +1,4 @@
 ﻿<template>
-    <van-pull-refresh v-model="loading1" success-text="刷新成功" @refresh="onRefresh">
     <van-list
             v-model="loading1"
             :finished="finished"
@@ -15,7 +14,6 @@
                 center
         />
     </van-list>
-    </van-pull-refresh>
 </template>
 
 <script>
@@ -43,10 +41,10 @@
                     console.log(response);
                 });
 
-            },
+            }/*,
             onRefresh() {
                 this.onLoad();
-            }/*,
+            },
             showTask(param) {
                 this.$emit('showTask',param.touchUrl);
             }*/
