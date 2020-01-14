@@ -3,10 +3,17 @@
 }
 .van-cell__label{
     font-size:18px;
+    color: black;
 }
 p{
-    font-size:16px;
+    font-size:18px;
 }
 .van-cell-group__title{
     font-size:18px;
+}
+.van-step {
+    color: black;
+}
+.van-cell__value {
+    color: black;
 }

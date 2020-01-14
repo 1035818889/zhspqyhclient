@@ -17,6 +17,10 @@ import swlcCx from '../pages/swlc/swlcCx'
 import swlcCxLclx0 from '../pages/swlc/swlcCxLclx0'
 import swlcCxLclx1 from '../pages/swlc/swlcCxLclx1'
 
+import tzxmjsJz from '../pages/tzxmjs/Jz'
+import tzxmjsJjkFgjz from '../pages/tzxmjs/JjkFgjz'
+import tzxmjsCgzjKsFgjz from '../pages/tzxmjs/CgzjKsFgjz'
+
 export default new VueRouter({
    routes: [
      {
@@ -80,6 +84,18 @@ export default new VueRouter({
        {
            path: '/swlcCxLclx1',
            component: swlcCxLclx1
+       },
+       {
+           path: '/tzxmjsJz',
+           component: tzxmjsJz
+       },
+       {
+           path: '/tzxmjsJjkFgjz',
+           component: tzxmjsJjkFgjz
+       },
+       {
+           path: '/tzxmjsCgzjKsFgjz',
+           component: tzxmjsCgzjKsFgjz
        }
   ]
 })
