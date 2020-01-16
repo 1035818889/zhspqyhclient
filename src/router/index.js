@@ -20,6 +20,8 @@ import swlcCxLclx1 from '../pages/swlc/swlcCxLclx1'
 import tzxmjsJz from '../pages/tzxmjs/Jz'
 import tzxmjsJjkFgjz from '../pages/tzxmjs/JjkFgjz'
 import tzxmjsCgzjKsFgjz from '../pages/tzxmjs/CgzjKsFgjz'
+import tzxmjsCx from '../pages/tzxmjs/TzxmjsCx'
+import tzxmjsCxForId from '../pages/tzxmjs/tzxmjsCxForId'
 
 export default new VueRouter({
    routes: [
@@ -96,6 +98,14 @@ export default new VueRouter({
        {
            path: '/tzxmjsCgzjKsFgjz',
            component: tzxmjsCgzjKsFgjz
+       },
+       {
+           path: '/tzxmjsCx',
+           component: tzxmjsCx
+       },
+       {
+           path: '/tzxmjsCxForId',
+           component: tzxmjsCxForId
        }
   ]
 })
