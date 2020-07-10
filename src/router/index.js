@@ -23,6 +23,22 @@ import tzxmjsCgzjKsFgjz from '../pages/tzxmjs/CgzjKsFgjz'
 import tzxmjsCx from '../pages/tzxmjs/TzxmjsCx'
 import tzxmjsCxForId from '../pages/tzxmjs/tzxmjsCxForId'
 
+import JjbkFgjz from '../pages/jjbk/JjbkFgjz'
+import JjgcFybkCx from '../pages/jjbk/JjgcFybkCx'
+import JjgcFybkCxMx from '../pages/jjbk/JjgcFybkCxMx'
+
+import JjssJjysFgjz from '../pages/jjss/JjssJjysFgjz'
+import JjssJjysCx from '../pages/jjss/JjssJjysCx'
+import JjssJjysCxMx from '../pages/jjss/JjssJjysCxMx'
+
+import JjssJjjsFgjz from '../pages/jjss/JjssJjjsFgjz'
+import JjssJjjsCx from '../pages/jjss/JjssJjjsCx'
+import JjssJjjsCxMx from '../pages/jjss/JjssJjjsCxMx'
+
+import JjssJuesuanFgjz from '../pages/jjss/JjssJuesuanFgjz'
+import JjssJuesuanCx from '../pages/jjss/JjssJuesuanCx'
+import JjssJuesuanCxMx from '../pages/jjss/JjssJuesuanCxMx'
+
 export default new VueRouter({
    routes: [
      {
@@ -106,6 +122,66 @@ export default new VueRouter({
        {
            path: '/tzxmjsCxForId',
            component: tzxmjsCxForId
+       },
+       {
+           path: '/JjbkFgjz',
+           component: JjbkFgjz
+       },
+       {
+           path: '/JjgcFybkCx',
+           component: JjgcFybkCx,
+           meta: {
+               title: '拨款明细查询'
+           }
+       },
+       {
+           path: '/JjgcFybkCxMx',
+           component: JjgcFybkCxMx
+       },
+       {
+           path: '/JjssJjysFgjz',
+           component: JjssJjysFgjz
+       },
+       {
+           path: '/JjssJjysCx',
+           component: JjssJjysCx,
+           meta: {
+               title: '预算送审查询'
+           }
+       },
+       {
+           path: '/JjssJjysCxMx',
+           component: JjssJjysCxMx
+       },
+       {
+           path: '/JjssJjjsFgjz',
+           component: JjssJjjsFgjz
+       },
+       {
+           path: '/JjssJjjsCx',
+           component: JjssJjjsCx,
+           meta: {
+               title: '结算送审查询'
+           }
+       },
+       {
+           path: '/JjssJjjsCxMx',
+           component: JjssJjjsCxMx
+       },
+       {
+           path: '/JjssJuesuanFgjz',
+           component: JjssJuesuanFgjz
+       },
+       {
+           path: '/JjssJuesuanCx',
+           component: JjssJuesuanCx,
+           meta: {
+               title: '决算送审查询'
+           }
+       },
+       {
+           path: '/JjssJuesuanCxMx',
+           component: JjssJuesuanCxMx
        }
   ]
 })
