@@ -39,6 +39,9 @@ import JjssJuesuanFgjz from '../pages/jjss/JjssJuesuanFgjz'
 import JjssJuesuanCx from '../pages/jjss/JjssJuesuanCx'
 import JjssJuesuanCxMx from '../pages/jjss/JjssJuesuanCxMx'
 
+import Czsrfl from '../pages/czsjcx/Czsrfl'
+import CzsrflMonth from '../pages/czsjcx/CzsrflMonth'
+
 export default new VueRouter({
    routes: [
      {
@@ -182,6 +185,14 @@ export default new VueRouter({
        {
            path: '/JjssJuesuanCxMx',
            component: JjssJuesuanCxMx
+       },
+       {
+           path: '/Czsrfl',
+           component: Czsrfl
+       },
+       {
+           path: '/CzsrflMonth',
+           component: CzsrflMonth
        }
   ]
 })
