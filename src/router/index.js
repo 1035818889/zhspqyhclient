@@ -42,6 +42,8 @@ import JjssJuesuanCxMx from '../pages/jjss/JjssJuesuanCxMx'
 import Czsrfl from '../pages/czsjcx/Czsrfl'
 import CzsrflMonth from '../pages/czsjcx/CzsrflMonth'
 
+import Kkjycx from '../pages/czsjcx/Kkjycx'
+
 export default new VueRouter({
    routes: [
      {
@@ -193,6 +195,10 @@ export default new VueRouter({
        {
            path: '/CzsrflMonth',
            component: CzsrflMonth
+       },
+       {
+           path: '/Kkjycx',
+           component: Kkjycx
        }
   ]
 })
