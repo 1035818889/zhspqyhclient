@@ -44,6 +44,11 @@ import CzsrflMonth from '../pages/czsjcx/CzsrflMonth'
 
 import Kkjycx from '../pages/czsjcx/Kkjycx'
 
+import Jbzcyszxqk from '../pages/czsjcx/Jbzcyszxqk'
+import JbzcyszxqkDwmx from '../pages/czsjcx/JbzcyszxqkDwmx'
+import YsdwZcmxCx from '../pages/czsjcx/YsdwZcmxCx'
+
+
 export default new VueRouter({
    routes: [
      {
@@ -199,6 +204,18 @@ export default new VueRouter({
        {
            path: '/Kkjycx',
            component: Kkjycx
+       },
+       {
+           path: '/Jbzcyszxqk',
+           component: Jbzcyszxqk
+       },
+       {
+           path: '/JbzcyszxqkDwmx',
+           component: JbzcyszxqkDwmx
+       },
+       {
+           path: '/YsdwZcmxCx',
+           component: YsdwZcmxCx
        }
   ]
 })

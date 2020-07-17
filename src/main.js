@@ -38,6 +38,8 @@ import { Dialog } from 'vant';
 import { PullRefresh } from 'vant';
 import { Form } from 'vant';
 import { Calendar } from 'vant';
+import { NoticeBar } from 'vant';
+Vue.use(NoticeBar);
 Vue.use(Calendar);
 Vue.use(Form);
 Vue.use(PullRefresh);
