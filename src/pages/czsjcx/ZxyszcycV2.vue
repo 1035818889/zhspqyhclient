@@ -14,6 +14,33 @@
                 type="line" sticky
                 offset-top="46px"
                 color="#379BE9">
+            <van-tab title="按单位查询">
+                <van-panel>
+                        <div>
+                            <van-list
+                                    v-model="loadingDrzc"
+                                    :finished="finishedDrzc"
+                                    finished-text="没有更多了"
+
+                            >
+                                <van-cell
+                                        v-for="item in listDrzc"
+                                        :key="item.key"
+                                        center
+                                >
+                                    {{item.ysdwDm}}<br/>
+                                    {{item.ysdwMc}}<br/>
+                                    {{item.zbje}}<br/>
+                                    {{item.zbye}}<br/>
+                                    {{item.zcjd}}<br/>
+                                    {{item.zcjeMon}}<br/>
+                                    {{item.zcjh}}<br/>
+                                    {{item.yejh}}<br/>
+                                </van-cell>
+                            </van-list>
+                        </div>
+                    </van-panel>
+            </van-tab>
             <van-tab title="按专项查询">
                 <van-panel>
                         <div>
@@ -39,33 +66,6 @@
                                      {{item.zcjh}}<br/>
                                     {{item.yejh}}<br/>
                                     {{item.zth}}<br/>
-                                </van-cell>
-                            </van-list>
-                        </div>
-                    </van-panel>
-            </van-tab>
-            <van-tab title="按单位查询">
-                <van-panel>
-                        <div>
-                            <van-list
-                                    v-model="loadingDrzc"
-                                    :finished="finishedDrzc"
-                                    finished-text="没有更多了"
-
-                            >
-                                <van-cell
-                                        v-for="item in listDrzc"
-                                        :key="item.key"
-                                        center
-                                >
-                                    {{item.ysdwDm}}<br/>
-                                    {{item.ysdwMc}}<br/>
-                                    {{item.zbje}}<br/>
-                                    {{item.zbye}}<br/>
-                                    {{item.zcjd}}<br/>
-                                    {{item.zcjeMon}}<br/>
-                                    {{item.zcjh}}<br/>
-                                    {{item.yejh}}<br/>
                                 </van-cell>
                             </van-list>
                         </div>
