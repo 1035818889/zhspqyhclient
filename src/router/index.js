@@ -40,13 +40,23 @@ import JjssJuesuanCx from '../pages/jjss/JjssJuesuanCx'
 import JjssJuesuanCxMx from '../pages/jjss/JjssJuesuanCxMx'
 
 import Czsrfl from '../pages/czsjcx/Czsrfl'
+import CzsrflV2 from '../pages/czsjcx/CzsrflV2'
 import CzsrflMonth from '../pages/czsjcx/CzsrflMonth'
 
 import Kkjycx from '../pages/czsjcx/Kkjycx'
+import KkjycxV2 from '../pages/czsjcx/KkjycxV2'
 
 import Jbzcyszxqk from '../pages/czsjcx/Jbzcyszxqk'
 import JbzcyszxqkDwmx from '../pages/czsjcx/JbzcyszxqkDwmx'
+
 import YsdwZcmxCx from '../pages/czsjcx/YsdwZcmxCx'
+
+import Zxyszcyc from '../pages/czsjcx/Zxyszcyc'
+import ZxyszcycV2 from '../pages/czsjcx/ZxyszcycV2'
+
+import Yszbzxqk from '../pages/czsjcx/Yszbzxqk'
+
+
 
 
 export default new VueRouter({
@@ -198,12 +208,20 @@ export default new VueRouter({
            component: Czsrfl
        },
        {
+           path: '/CzsrflV2',
+           component: CzsrflV2
+       },
+       {
            path: '/CzsrflMonth',
            component: CzsrflMonth
        },
        {
            path: '/Kkjycx',
            component: Kkjycx
+       },
+       {
+           path: '/KkjycxV2',
+           component: KkjycxV2
        },
        {
            path: '/Jbzcyszxqk',
@@ -216,6 +234,18 @@ export default new VueRouter({
        {
            path: '/YsdwZcmxCx',
            component: YsdwZcmxCx
+       },
+       {
+           path: '/Zxyszcyc',
+           component: Zxyszcyc
+       },
+       {
+           path: '/ZxyszcycV2',
+           component: ZxyszcycV2
+       },
+       {
+           path: '/Yszbzxqk',
+           component: Yszbzxqk
        }
   ]
 })
