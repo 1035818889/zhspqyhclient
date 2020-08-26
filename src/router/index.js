@@ -16,6 +16,9 @@ import ksyiAdjustFgjzsp from '../pages/swlc/ksyiAdjustFgjzsp'
 import swlcCx from '../pages/swlc/swlcCx'
 import swlcCxLclx0 from '../pages/swlc/swlcCxLclx0'
 import swlcCxLclx1 from '../pages/swlc/swlcCxLclx1'
+import swlcKzsp from '../pages/swlc/kzsp'
+import swlcYskKz from '../pages/swlc/yskKz'
+import ksyiAdjustKzsp from '../pages/swlc/ksyiAdjustKzsp'
 
 import tzxmjsJz from '../pages/tzxmjs/Jz'
 import tzxmjsJjkFgjz from '../pages/tzxmjs/JjkFgjz'
@@ -246,6 +249,18 @@ export default new VueRouter({
        {
            path: '/Yszbzxqk',
            component: Yszbzxqk
+       },
+       {
+           path: '/swlcKzsp',
+           component: swlcKzsp
+       },
+       {
+           path: '/swlcYskKz',
+           component: swlcYskKz
+       },
+       {
+           path: '/ksyiAdjustKzsp',
+           component: ksyiAdjustKzsp
        }
   ]
 })
