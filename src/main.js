@@ -39,6 +39,10 @@ import { PullRefresh } from 'vant';
 import { Form } from 'vant';
 import { Calendar } from 'vant';
 import { NoticeBar } from 'vant';
+import { Checkbox, CheckboxGroup } from 'vant';
+
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
 Vue.use(NoticeBar);
 Vue.use(Calendar);
 Vue.use(Form);

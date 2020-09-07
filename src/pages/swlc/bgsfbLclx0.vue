@@ -45,11 +45,6 @@
                     </van-list>
                 </div>
                 <div v-if="activeIndex === 2">
-                    <!--<van-panel>
-                        <div slot="header">
-                            <van-button plain icon="edit" type="default" text="填写意见" @click="onClickTxyj" />
-                        </div>
-                        <div>-->
                             <van-collapse v-model="activeNames">
                                 <van-list
                                         v-model="loadingSwyj"
@@ -73,8 +68,6 @@
                                     </van-collapse-item>
                                 </van-list>
                             </van-collapse>
-                       <!-- </div>
-                    </van-panel>-->
                 </div>
                 <div v-if="activeIndex === 3">
                     <van-steps direction="vertical" inactive-icon="passed" :active="-1">
@@ -95,76 +88,18 @@
                 </div>
             </template>
         </van-tree-select>
-        <!--<van-goods-action safe-area-inset-bottom style="width: 100%;/*margin-bottom: 45px;*/">
-            <van-row style="width: 100%;">
-                <van-col span="5">
-                    <van-goods-action-button style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;margin-left:0px" type="warning" text="退回" @click="onClickBack" />
-                </van-col>
-                <van-col span="10">
-                    <van-field v-model="value" placeholder="请输入审批意见" />
-                </van-col>
-                <van-col span="4">
-                    <van-goods-action-icon icon="chat-o" text="" @click="onClickSpyj" />
-                </van-col>
-                <van-col span="5">
-                    <van-goods-action-button style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;" type="info" text="同意" @click="onClickPass" />
-                </van-col>
-            </van-row>
-        </van-goods-action>-->
         <van-goods-action safe-area-inset-bottom style="width: 100%;">
             <van-row style="width: 100%;">
-                <van-col span="6">
-                    <van-goods-action-button style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;margin-left:0px" type="warning" text="回退收文岗" @click="onClickBackV2" />
+                <van-col span="12">
+                    <van-goods-action-button style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;margin-left:0px" type="warning" text="回退" @click="onClickBackV2" />
                 </van-col>
-                <van-col span="6">
-                    <van-goods-action-button style="border-right: solid #ACC0D8 1px" type="info" text="填写意见" @click="onClickTxyj" />
-                </van-col>
-                <van-col span="6">
-                    <van-goods-action-button style="border-right: solid #ACC0D8 1px" type="info" text="发送同事" @click="onClickFsKsUser" />
-                </van-col>
-                <van-col span="6">
-                    <van-goods-action-button style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;" type="info" text="提交领导" @click="onClickPassV2" />
+                <van-col span="12">
+                    <van-goods-action-button style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;" type="info" text="分发" @click="onClickFenfa" />
                 </van-col>
             </van-row>
         </van-goods-action>
         <van-action-sheet v-model="show" :actions="actions" @select="onSelect" @open="onLoadSpyj" style="margin-bottom: 55px;"/>
-        <van-action-sheet v-model="show2" :actions="actions" @select="onSelect2" @open="onLoadSpyj" style="margin-bottom: 55px;"/>
-        <van-action-sheet v-model="showKsUser" :actions="ksUsers" @select="onSelectKsUser" @open="onLoadKsUser" style="margin-bottom: 55px;"/>
-        <van-popup
-                v-model="popupShow"
-                position="bottom"
-                closeable
-                close-icon-position = "top-right"
-                safe-area-inset-bottom
-                style = "height: 350px"
-        >
-            <van-cell-group>
-                <van-field
-                        v-model="currentYj[0].ksmc"
-                        label="科室名称"
-                        left-icon="friends-o"
-                        disabled
-                />
-                <van-field
-                        v-model="currentYj[0].usercname"
-                        label="用户名"
-                        left-icon="contact"
-                        disabled
-                />
-                <van-field
-                        v-model="currentYj[0].yj"
-                        rows="4"
-                        autosize
-                        label="办理意见"
-                        type="textarea"
-                        left-icon="edit"
-                        placeholder="请输入办理意见"
-                >
-                    <van-button slot="button" size="small" type="primary" icon="chat-o" @click="onClickSpyj2">意见选择</van-button>
-                </van-field>
-            </van-cell-group>
-            <van-goods-action-button style="margin-right:0px;margin-left:0px" type="info" text="保存意见" @click="onSaveYj" />
-        </van-popup>
+        <van-action-sheet v-model="showXbbm" :actions="xbbmReForZbksSelect" @select="onSelectXbbm" style="margin-bottom: 55px;"/>
         <van-popup
                 v-model="swyjFjPopupShow"
                 position="bottom"
@@ -213,40 +148,73 @@
             <van-goods-action-button style="margin-right:0px;margin-left:0px" type="info" text="确认提交" @click="onClickSubmit" />
         </van-popup>
         <van-popup
-                v-model="ksUserPopupShow"
+                v-model="xbbmPopupShow"
                 position="bottom"
                 closeable
                 close-icon-position = "top-right"
                 safe-area-inset-bottom
-                style = "height: 450px"
+                style = "height: 80%"
         >
             <van-cell-group>
                 <van-field></van-field>
                 <van-field
-                        v-model="ksCname"
+                        v-model="xbbmsStr"
                         rows="6"
                         autosize
-                        label="股室同事："
+                        label="办理部门："
                         type="textarea"
                         left-icon="contact"
                         disabled
-                        placeholder="请选择同事"
+                        placeholder="请选择办理部门"
                 >
-                    <van-button style="padding-left: 0px;" slot="button" size="small" type="primary" icon="chat-o" @click="onClickShowKsUser">选择同事</van-button>
+                    <van-button style="padding-left: 0px;" slot="button" size="small" type="primary" icon="chat-o" @click="onClickShowAllKs">选择股室</van-button>
                 </van-field>
                 <van-field
-                        v-model="value"
+                        v-model="zbbmStr"
                         rows="6"
                         autosize
-                        label="审批意见："
+                        label="主办部门："
                         type="textarea"
-                        left-icon="edit"
-                        placeholder="请输入审批意见"
+                        left-icon="contact"
+                        disabled
+                        placeholder="请选择主办部门"
                 >
-                    <van-button style="padding-left: 0px;" slot="button" size="small" type="primary" icon="chat-o" @click="onClickSpyj">意见选择</van-button>
+                    <van-button style="padding-left: 0px;" slot="button" size="small" type="primary" icon="chat-o" @click="onClickShowXbbm">选择主办</van-button>
                 </van-field>
             </van-cell-group>
-            <van-goods-action-button style="margin-right:0px;margin-left:0px" type="info" text="确认提交" @click="onClickFsKsUserOpera" />
+            <van-goods-action-button style="margin-right:0px;margin-left:0px" type="info" text="确认提交" @click="onClickPassV2" />
+        </van-popup>
+        <van-popup
+                v-model="xbbmSelectPopupShow"
+                position="bottom"
+                closeable
+                close-icon-position = "top-right"
+                safe-area-inset-bottom
+                style = "height: 80%"
+        >
+            <van-field></van-field>
+            <template>
+                <van-checkbox-group v-model="xbbmRe" style="margin-bottom: 75px;">
+                    <van-cell-group>
+                        <van-cell
+                        v-for="(ks, index) in kss"
+                        clickable
+                        :key="ks.deptId"
+                        :title="ks.name"
+                        @click="toggleKs(index)"
+                        >
+                        <van-checkbox
+                            :name="ks"
+                            ref="checkboxesKss"
+                            slot="right-icon"
+                        />
+                        </van-cell>
+                    </van-cell-group>
+                </van-checkbox-group>
+            </template>
+             <van-goods-action safe-area-inset-bottom style="width: 100%;">
+                <van-goods-action-button style="margin-right:0px;margin-left:0px" type="info" text="确认" @click="onClickHideXbbmSelectPopupShow" />
+            </van-goods-action>
         </van-popup>
     </div>
 </template>
@@ -263,20 +231,15 @@
             return {
                 activeIndex: 0,
                 items: [{ text: '基本信息' }, { text: '正文附件' }, { text: '科室意见' }, { text: '审批历史' }],
-                popupShow:false,
                 jbxx: [],
                 loadingJbxx: false,
                 finishedJbxx: false,
-                apiUrlJbxx: this.GLOBAL.serverSrc+'/zhspSwlc/getWjysById.do',
+                apiUrlJbxx: this.GLOBAL.serverSrc+'/zhspSwlc/getWjysByIdForFb.do',
                 swyjs: [],
                 loadingSwyj: false,
                 finishedSwyj: false,
                 apiUrlSwyj: this.GLOBAL.serverSrc+'/zhspSwlc/getSwyjByBusinessId.do',
-                activeKey: 0,
                 activeNames: [],
-                apiUrlCurrentKs: this.GLOBAL.serverSrc+'/zhspSwlc/getCurrentKsByTaskId.do',
-                apiUrlCurrentYj: this.GLOBAL.serverSrc+'/zhspSwlc/getCurrentKsyj.do',
-                currentYj:[{ksmc:'',usercname:'',yj:'',swyjId:''}],
                 apiUrlLwclyjZws: this.GLOBAL.serverSrc+'/zhspSwlc/getSwfjByBusinessIdAndType.do',
                 wjysZws: [],
                 loadingWjysZws: false,
@@ -288,25 +251,30 @@
                 apiUrlOperate: this.GLOBAL.serverSrc+'/zhspSwlc/doTask.do',
                 show: false,
                 value:"",
-                show2: false,
                 apiUrlSpyj: this.GLOBAL.serverSrc+'/zhspSwlc/getSpyj.do',
                 actions: [
                     { name: '同意。' },
                     { name: '退回。' }
                 ],
-                apiUrlSaveYj: this.GLOBAL.serverSrc+'/zhspSwlc/saveYj.do',
                 swyjFjPopupShow:false,
                 swyjFjs: [],
                 loadingSwyjFjs: false,
                 finishedSwyjFjs: false,
                 submitType:"",
                 operatePopupShow:false,
-                ksUserPopupShow:false,
-                ksUsername:"",
-                ksCname:"",
-                showKsUser: false,
-                apiUrlKsUser: this.GLOBAL.serverSrc+'/zhspSwlc/getKsUserByTaskId.do',
-                ksUsers: []
+                xbbmPopupShow:false,
+                xbbmIdsStr:"",
+                xbbmsStr:"",
+                zbbmIdStr:"",
+                zbbmStr:"",
+                xbbmSelectPopupShow:false,
+                xbbmRe: [],
+                xbbmReForZbksSelect: [],
+                kss: [],
+                loadingKss: false,
+                finishedKss: false,
+                apiUrlKss: this.GLOBAL.serverSrc+'/zhspSwlc/getSwlcTypyAllKs.do',
+                showXbbm: false
             };
         },
         methods: {
@@ -318,39 +286,56 @@
             onClickSpyj(){
                 this.show=true;
             },
-            onClickSpyj2(){
-                this.show2=true;
-            },
-            onClickShowKsUser(){
-                this.showKsUser=true;
-            },
-            onClickTxyj(){
-                this.popupShow = true;
+            onClickShowXbbm(){
+                this.showXbbm=true;
             },
             onClickBackV2(){
                 this.submitType = "back";
                 this.operatePopupShow = true;
             },
-            onClickFsKsUser(){
-                //this.submitType = "back";
-                this.ksUserPopupShow = true;
+            onClickFenfa(){
+                this.xbbmPopupShow = true;
+            },
+            onClickShowAllKs(){
+                this.xbbmSelectPopupShow=true;
+            },
+            onClickHideXbbmSelectPopupShow(){
+                this.xbbmSelectPopupShow=false;
+                let r1 = "";
+                let r2 = "";
+                for (var i=0;i<this.xbbmRe.length;i++)
+                { 
+                   let deptId = this.xbbmRe[i].deptId;
+                   r1 = r1+deptId+";";
+                   let deptName = this.xbbmRe[i].name;
+                   r2 = r2+deptName+";"
+                }
+                this.xbbmIdsStr = r1;
+                this.xbbmsStr = r2;
+                this.xbbmReForZbksSelect = this.xbbmRe;
             },
             onClickPassV2(){
-                let yj = this.currentYj[0].yj;
-                if(typeof yj == "undefined" || null == yj || "" == yj){
-                    this.$toast.fail('请先填写意见！');
+                let xbbmsStr = this.xbbmsStr;
+                if(typeof xbbmsStr == "undefined" || null == xbbmsStr || "" == xbbmsStr){
+                    this.$toast.fail('请先选择协办部门！');
+                    return;
+                }
+                let zbbmStr = this.zbbmStr;
+                if(typeof zbbmStr == "undefined" || null == zbbmStr || "" == zbbmStr){
+                    this.$toast.fail('请先选择主办部门！');
                     return;
                 }
                 this.submitType = "pass";
-                this.operatePopupShow = true;
+                this.onClickPass();
             },
             onClickSubmit(){
-                let submitType = this.submitType;
+                /* let submitType = this.submitType;
                 if("pass" == submitType){
                     this.onClickPass();
                 }else if("back" == submitType){
                     this.onClickBack();
-                }
+                } */
+                this.onClickBack();
             },
             onClickBack(){
                 this.$dialog.confirm({
@@ -360,7 +345,7 @@
                     let taskId = this.$route.query.taskId;
                     this.$http.get(this.apiUrlOperate,{
                         params: {businessId:businessId,taskId:taskId,
-                            opinion:this.value,submitType:"back",opFunction:"swlcKzspOperate"}
+                            opinion:this.value,submitType:"back",opFunction:"bgsfbSubmit"}
                     }).then(function(response) {
                         if("SUCCESS"==response.bodyText){
                             this.$toast.success('提交成功！');
@@ -384,37 +369,7 @@
                     let taskId = this.$route.query.taskId;
                     this.$http.get(this.apiUrlOperate,{
                         params: {businessId:businessId,taskId:taskId,
-                            opinion:this.value,submitType:"pass",opFunction:"swlcKzspOperate"}
-                    }).then(function(response) {
-                        if("SUCCESS"==response.bodyText){
-                            this.$toast.success('提交成功！');
-                            window.top.location.href="/";
-                        }else if("SWYJ_IS_NULL"==response.bodyText){
-                            this.$toast.fail('提交失败，请先填写意见！');
-                        }else{
-                            this.$toast.fail('提交失败，请关闭窗口刷新待办任务！');
-                        }
-                    },function() {
-                        this.$toast.fail('提交失败，请关闭窗口刷新待办任务！');
-                    });
-                }).catch(() => {
-                    // on cancel
-                });
-            },
-            onClickFsKsUserOpera(){
-                let ksUsername = this.ksUsername;
-                if(typeof ksUsername == "undefined" || null == ksUsername || "" == ksUsername){
-                    this.$toast.fail('请先选择科室同事，再提交！');
-                    return;
-                }
-                this.$dialog.confirm({
-                    message: '确认是否提交？'
-                }).then(() => {
-                    let businessId = this.$route.query.businessId;
-                    let taskId = this.$route.query.taskId;
-                    this.$http.get(this.apiUrlOperate,{
-                        params: {businessId:businessId,taskId:taskId,
-                            opinion:this.value,submitType:"fsKsUser",opFunction:"swlcKzspOperate",ksUsername:this.ksUsername}
+                            opinion:this.value,submitType:"pass",opFunction:"bgsfbSubmit",xbbmIdsStr:this.xbbmIdsStr,zbbmIdStr:this.zbbmIdStr}
                     }).then(function(response) {
                         if("SUCCESS"==response.bodyText){
                             this.$toast.success('提交成功！');
@@ -435,14 +390,12 @@
                 this.show = false;
                 this.value = item.name;
             },
-            onSelect2(item) {
-                this.show2 = false;
-                this.currentYj[0].yj = item.name;
-            },
-            onSelectKsUser(item) {
-                this.showKsUser = false;
-                this.ksUsername = item.username;
-                this.ksCname = item.name;
+            onSelectXbbm(item) {
+                // 默认情况下，点击选项时不会自动关闭菜单
+                // 可以通过 close-on-click-action 属性开启自动关闭
+                this.showXbbm = false;
+                this.zbbmIdStr = item.deptId;
+                this.zbbmStr = item.name;
             },
             onLoadJbxx() {
                 let businessId = this.$route.query.businessId;
@@ -459,11 +412,10 @@
                     console.log(response);
                 });
 
-                let taskId = this.$route.query.taskId;
-                this.$http.get(this.apiUrlCurrentYj,{params: {businessId:businessId,taskId:taskId,type:'1'}}).then(function(response) {
-                    this.currentYj =response.data;
-                    // eslint-disable-next-line no-console
-                    console.log(this.currentYj);
+                this.$http.get(this.apiUrlKss,{params: {}}).then(function(response) {
+                    this.kss=response.data;
+                    this.loadingKss = false;
+                    this.finishedKss = true;
                 },function() {
                     // eslint-disable-next-line no-console
                     console.log("出错了");
@@ -471,24 +423,10 @@
                     // eslint-disable-next-line no-console
                     console.log(response);
                 });
-
             },
             onLoadSpyj() {
                 this.$http.get(this.apiUrlSpyj,{params: {}}).then(function(response) {
                     this.actions=response.data;
-                },function() {
-                    // eslint-disable-next-line no-console
-                    console.log("出错了");
-                }).catch(function(response) {
-                    // eslint-disable-next-line no-console
-                    console.log(response);
-                });
-
-            },
-            onLoadKsUser() {
-                let taskId = this.$route.query.taskId;
-                this.$http.get(this.apiUrlKsUser,{params: {taskId:taskId}}).then(function(response) {
-                    this.ksUsers=response.data;
                 },function() {
                     // eslint-disable-next-line no-console
                     console.log("出错了");
@@ -521,26 +459,6 @@
                 }).catch(function(response) {
                     // eslint-disable-next-line no-console
                     console.log(response);
-                });
-            },
-            onSaveYj() {
-                let businessId = this.$route.query.businessId;
-                let taskId = this.$route.query.taskId;
-                let yj = this.currentYj[0].yj;
-                if(typeof yj == "undefined" || null == yj || "" == yj){
-                    this.$toast.fail('办理意见不能为空！');
-                    return;
-                }
-                this.$http.get(this.apiUrlSaveYj,{params: {businessId:businessId,taskId:taskId,type:'1',yj:yj}}).then(function(response) {
-                    if("SUCCESS"==response.bodyText){
-                        this.$toast.success('提交成功！');
-                        this.popupShow = false;
-                        this.onLoadSwyj();
-                    }else{
-                        this.$toast.fail('提交失败，请关闭窗口刷新待办任务！');
-                    }
-                },function() {
-                    this.$toast.fail('提交失败，请关闭窗口刷新待办任务！');
                 });
             },
             onLoadWjysZws() {
@@ -587,12 +505,40 @@
                     });
                 }
             },
+            toggleKs(index) {
+                this.$refs.checkboxesKss[index].toggle();
+                /*let ks = this.$refs.checkboxesKss[index];
+                let ksId = ks.name.deptId;
+                let ksName = ks.name.name;
+                let checkedR = ks.checked;
+                // eslint-disable-next-line no-console
+                console.log(checkedR);
+                if(this.xbbmIdsStr.indexOf(ksId) == -1 && !checkedR){
+                    this.xbbmIdsStr = this.xbbmIdsStr + ";" + ksId;
+                    // eslint-disable-next-line no-console
+                    console.log("1");
+                }else if(this.xbbmIdsStr.indexOf(ksId) == -1 && checkedR){
+                    this.xbbmIdsStr = this.xbbmIdsStr.replace(/ksId;/g,"");
+                }
+                // eslint-disable-next-line no-console
+                console.log(this.xbbmIdsStr);
+                if(this.xbbmsStr.indexOf(ksName) == -1 && !checkedR){
+                    this.xbbmsStr = this.xbbmsStr + ";" + ksName;
+                }else if(this.xbbmsStr.indexOf(ksName) == -1 && checkedR){
+                    this.xbbmsStr = this.xbbmsStr.replace(/ksName;/g,"");
+                }
+                // eslint-disable-next-line no-console
+                console.log(this.xbbmsStr);
+                // eslint-disable-next-line no-console
+                console.log(ks.name.name);
+                // eslint-disable-next-line no-console
+                console.log(ks.name.deptId);
+                // eslint-disable-next-line no-console
+                console.log(ks.checked);*/
+            },
             showFile(fileUrl,fileType) {
                 this.$refs.file.showFile(this.GLOBAL.serverSrcPdfView + this.GLOBAL.serverSrc + "/zhspTouchFileOnlineOpen/preview?fileName%3D"+fileUrl+"%26fileType%3D"+fileType);
             }
-            /*showFile(fileUrl,fileType) {
-                window.parent.showFile(this.GLOBAL.serverSrcPdfView + this.GLOBAL.serverSrc + "/zhspTouchFileOnlineOpen/preview?fileName%3D"+fileUrl+"%26fileType%3D"+fileType);
-            }*/
         }
     }
 </script>

@@ -59,6 +59,10 @@ import ZxyszcycV2 from '../pages/czsjcx/ZxyszcycV2'
 
 import Yszbzxqk from '../pages/czsjcx/Yszbzxqk'
 
+import bgsfbLclx0 from '../pages/swlc/bgsfbLclx0'
+import bgsfbLclx1 from '../pages/swlc/bgsfbLclx1'
+import bgshtfb from '../pages/swlc/bgshtfb'
+
 
 
 
@@ -261,6 +265,18 @@ export default new VueRouter({
        {
            path: '/ksyiAdjustKzsp',
            component: ksyiAdjustKzsp
+       },
+       {
+           path: '/bgsfbLclx0',
+           component: bgsfbLclx0
+       },
+       {
+           path: '/bgsfbLclx1',
+           component: bgsfbLclx1
+       },
+       {
+           path: '/bgshtfb',
+           component: bgshtfb
        }
   ]
 })
