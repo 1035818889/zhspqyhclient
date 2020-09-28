@@ -52,7 +52,7 @@
                         v-model="xmlx"
                         center
                         clearable
-                        disabled
+                        readonly
                         label="项目类型"
                         placeholder="请选择项目类型"
                 >
