@@ -63,6 +63,7 @@ import bgsfbLclx0 from '../pages/swlc/bgsfbLclx0'
 import bgsfbLclx1 from '../pages/swlc/bgsfbLclx1'
 import bgshtfb from '../pages/swlc/bgshtfb'
 
+import zfpfjzsp from '../pages/swlc/zfpfjzsp'
 
 
 
@@ -277,6 +278,10 @@ export default new VueRouter({
        {
            path: '/bgshtfb',
            component: bgshtfb
+       },
+       {
+           path: '/zfpfjzsp',
+           component: zfpfjzsp
        }
   ]
 })
