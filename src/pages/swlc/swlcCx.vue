@@ -3,10 +3,13 @@
         <van-nav-bar
                 id = "swlcCxHeaderNavBar"
                 title="文件查询"
+                left-text="返回"
+                left-arrow
+                @click-left="onClickLeft"
                 fixed
                 border
         >
-            <van-icon name="search" slot="right" color="white" size="x-large" @click="onSearchShow()"/>
+            <van-icon name="search" slot="right" color="#1989fa" size="x-large" @click="onSearchShow()"/>
         </van-nav-bar>
         <van-list
                 v-model="loading1"
@@ -133,6 +136,9 @@
             },
             showTask(param) {
                 this.$refs.task.showTask(param.touchUrl);
+            },
+            onClickLeft() {
+                window.top.location.href="/#/ssczzhxt";
             }
         },
 
@@ -141,13 +147,12 @@
 
 <style scoped>
     #swlcCxHeaderNavBar {
-        color: #FFF;
-        background: #379BE9;
+        background: whitesmoke;
     }
-    .van-nav-bar__title {
+    /* .van-nav-bar__title {
         color: #FFF;
     }
     .van-list {
         padding-top: 50px;
-    }
+    } */
 </style>

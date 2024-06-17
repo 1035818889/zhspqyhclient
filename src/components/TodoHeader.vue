@@ -3,6 +3,9 @@
         <van-nav-bar
                 id = "todoNavBar"
                 title="待办任务"
+                left-text="返回"
+                left-arrow
+                @click-left="onClickLeft"
                 right-text="刷新"
                 @click-right="onClickRight"
                 fixed
@@ -18,6 +21,9 @@
             onClickRight() {
                 this.$emit('refreshTodos');
                 window.scrollTo(0, 0);
+            },
+            onClickLeft() {
+                window.top.location.href="/#/ssczzhxt";
             }
         }
     }
@@ -25,13 +31,7 @@
 
 <style scoped>
     #todoNavBar {
-        color: #FFF;
-        background: #379BE9;
+        background: whitesmoke;
     }
-    .van-nav-bar__title {
-        color: #FFF;
-    }
-    .van-nav-bar__text {
-        color: #FFF;
-    }
+
 </style>

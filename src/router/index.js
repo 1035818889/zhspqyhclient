@@ -65,14 +65,16 @@ import bgshtfb from '../pages/swlc/bgshtfb'
 
 import zfpfjzsp from '../pages/swlc/zfpfjzsp'
 
+import Ssczzhxt from '../pages/Ssczzhxt'
+
 
 
 export default new VueRouter({
    routes: [
-     {
+    /*  {
        path: '/',
        redirect: '/todo'
-     },
+     }, */
        {
            path: '/todo',
            component: TodoPage,
@@ -282,6 +284,13 @@ export default new VueRouter({
        {
            path: '/zfpfjzsp',
            component: zfpfjzsp
-       }
+       },
+       {
+            path: '/ssczzhxt',
+            component: Ssczzhxt,
+            meta: {
+                title: '三水财政综合系统'
+            }
+        }
   ]
 })

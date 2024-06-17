@@ -365,7 +365,7 @@
                         if("SUCCESS"==response.bodyText){
                             this.$toast.success('提交成功！');
                             //this.$router.replace("/");
-                            window.top.location.href="/";
+                            window.top.location.href="/#/todo";
                         }else{
                             this.$toast.fail('提交失败，请关闭窗口刷新待办任务！');
                         }
@@ -388,7 +388,7 @@
                     }).then(function(response) {
                         if("SUCCESS"==response.bodyText){
                             this.$toast.success('提交成功！');
-                            window.top.location.href="/";
+                            window.top.location.href="/#/todo";
                         }else if("SWYJ_IS_NULL"==response.bodyText){
                             this.$toast.fail('提交失败，请先填写意见！');
                         }else{
@@ -418,7 +418,7 @@
                     }).then(function(response) {
                         if("SUCCESS"==response.bodyText){
                             this.$toast.success('提交成功！');
-                            window.top.location.href="/";
+                            window.top.location.href="/#/todo";
                         }else{
                             this.$toast.fail('提交失败，请关闭窗口刷新待办任务！');
                         }
