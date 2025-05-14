@@ -151,8 +151,8 @@
     }
     /* .van-nav-bar__title {
         color: #FFF;
-    }
+    } */
     .van-list {
         padding-top: 50px;
-    } */
+    }
 </style>
