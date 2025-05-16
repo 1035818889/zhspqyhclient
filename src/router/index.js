@@ -26,6 +26,7 @@ import tzxmjsCgzjKsFgjz from '../pages/tzxmjs/CgzjKsFgjz'
 import tzxmjsCx from '../pages/tzxmjs/TzxmjsCx'
 import tzxmjsCxForId from '../pages/tzxmjs/tzxmjsCxForId'
 
+import gwycFgldsp from '../pages/gwyc/gwycFgldsp'
 import JjbkFgjz from '../pages/jjbk/JjbkFgjz'
 import JjgcFybkCx from '../pages/jjbk/JjgcFybkCx'
 import JjgcFybkCxMx from '../pages/jjbk/JjgcFybkCxMx'
@@ -156,6 +157,14 @@ export default new VueRouter({
        {
            path: '/JjbkFgjz',
            component: JjbkFgjz
+       },
+       {
+           path: '/gwycFgldsp',
+           component: gwycFgldsp
+       },
+       {
+           path: '/gwycFgldsp',
+           component: gwycFgldsp
        },
        {
            path: '/JjgcFybkCx',
